@@ -1,0 +1,15 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check template markdown
+        run: |
+          for f in templates/*.md CLAUDE.md README.md; do
+            echo "Checking $f..."
+            [ -s "$f" ] || { echo "Empty file: $f"; exit 1; }
+          done
